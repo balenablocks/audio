@@ -7,9 +7,7 @@ function build_and_push_image () {
   local CREATE_DOCKERFILE=$3
 
   echo "Building for $BALENA_MACHINE_NAME..."
-  if [[ -z "${CREATE_DOCKERFILE}" ]]; then
-    sed "s/%%BALENA_MACHINE_NAME%%/$BALENA_MACHINE_NAME/g" Dockerfile.template > Dockerfile.$BALENA_MACHINE_NAME
-  fi
+  sed "s/%%BALENA_MACHINE_NAME%%/$BALENA_MACHINE_NAME/g" Dockerfile.template > Dockerfile.$BALENA_MACHINE_NAME
   docker buildx build -t balenablocks/audio:$BALENA_MACHINE_NAME --platform $DOCKER_ARCH --file Dockerfile.$BALENA_MACHINE_NAME .
   
   echo "Publishing..."
@@ -30,7 +28,7 @@ build_and_push_image "raspberrypi4-64" "linux/arm64"
 build_and_push_image "raspberrypi3-64" "linux/arm64"
 build_and_push_image "raspberrypi3" "linux/arm/v7"
 build_and_push_image "raspberry-pi2" "linux/arm/v7"
-build_and_push_image "raspberry-pi" "linux/arm/v6" "true"
+build_and_push_image "raspberry-pi" "linux/arm/v6"
 build_and_push_image "fincm3" "linux/arm/v7"
 build_and_push_image "intel-nuc" "linux/amd64"
 build_and_push_image "jetson-nano" "linux/arm64"
