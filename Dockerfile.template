@@ -1,8 +1,21 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-node:12-build as utils-builder
+WORKDIR /usr/src
+
+COPY utils/*.json ./
+RUN npm install
+
+#dev-run=npm install -g ts-node
+# For utils development add this to next line: 
+#dev-cmd-live=balena-idle
+
+COPY utils/src src
+RUN npm run build
+
 # --- Note on PulseAudio version ---
 # Alpine 3.12 pins PulseAudio version to 13.x.x
-# See https://pkgs.alpinelinux.org/packages?name=pulseaudio&branch=v3.12
-
-FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine:3.12-run
+# "install_package pulseaudio~=13" forces the build to fail if alpine version is updated without explicitly updating PA version
+# For PA versions on alpine see: https://pkgs.alpinelinux.org/packages?name=pulseaudio&branch=v3.12
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine-node:14-3.12-run
 WORKDIR /usr/src
 
 # UDev is required to autodetect ALSA devices
@@ -20,8 +33,7 @@ RUN install_packages \
   pulseaudio-utils \
   xxd
 
-# For local development
-#dev-cmd-live=pulseaudio || balena-idle
+# For audio block development add this to next line: #dev-cmd-live=pulseaudio || balena-idle
 
 # PulseAudio configuration
 COPY pulseaudio/primitive.pa /etc/pulse/primitive.pa
@@ -30,6 +42,9 @@ COPY pulseaudio/daemon.conf /etc/pulse/daemon.conf
 
 # UDev configuration
 COPY udev/95-balena-audio.rules /etc/udev/rules.d/95-balena-audio.rules
+
+# Get compiled audioblock-utils
+COPY --from=utils-builder /usr/src/build .
 
 # Entrypoint
 COPY entry.sh .

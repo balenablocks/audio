@@ -3,3 +3,5 @@ node_modules
 Dockerfile.*
 !Dockerfile.template
 GH_TOKEN.txt
+build
+.DS_Store
