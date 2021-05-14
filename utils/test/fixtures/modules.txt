@@ -1,0 +1,3 @@
+ 0 snd_bcm2835
+ 1 snd_usb_audio
+ 2 snd_usb_audio

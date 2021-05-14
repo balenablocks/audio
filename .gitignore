@@ -5,3 +5,4 @@ Dockerfile.*
 GH_TOKEN.txt
 build
 .DS_Store
+.vscode

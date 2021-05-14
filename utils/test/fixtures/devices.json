@@ -1,0 +1,17 @@
+{
+  "device1": {
+	"belongs_to__application": "app1",
+	"device_type": "raspberry-pi",
+	"belongs_to__user": "user1"
+  },
+  "device10": {
+	"belongs_to__application": "app1",
+	"device_type": "raspberry-pi",
+	"belongs_to__user": "user1"
+  },
+  "device2": {
+	"belongs_to__application": "app2",
+	"device_type": "raspberry-pi",
+	"belongs_to__user": "user2"
+  }
+}

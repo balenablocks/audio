@@ -1,0 +1,6 @@
+ 0 [bcm2835-jack   ]: bcm2835_headphonbcm2835 Headphones - bcm2835 Headphones
+                      bcm2835 Headphones
+ 1 [usb-soundcard-1]: USB-Audio - USB Audio Device
+                      GeneralPlus USB Audio Device at usb-0000:01:00.0-1.1, full speed
+ 2 [usb-soundcard-2]: USB-Audio - USB PnP Sound Device
+                      C-Media Electronics Inc. USB PnP Sound Device at usb-0000:01:00.0-1.4, full spe

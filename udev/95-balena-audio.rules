@@ -4,6 +4,7 @@
 # - udevadm info -a /dev/snd/controlC*
 # - For DACs: https://github.com/raspberrypi/linux/tree/rpi-5.4.y/sound/soc/bcm
 # - For BCM2835 (RPi): https://github.com/raspberrypi/linux/blob/rpi-5.4.y/drivers/staging/vc04_services/bcm2835-audio/bcm2835.c
+# - To check loaded modules by alsa: /proc/asound/modules
 
 # ALSA
 SUBSYSTEM!="sound", GOTO="alsa_card_naming_end"
