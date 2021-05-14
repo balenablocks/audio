@@ -127,6 +127,16 @@ function pa_set_default_output () {
   fi
 }
 
+function pa_set_init_volume () {
+  local PA_VOLUME="$1"
+  local PA_SINK=$(cat /run/pulse/pulseaudio.sink)
+
+  if [[ -n "$PA_VOLUME" ]]; then
+    echo "$PA_VOLUME" > /run/pulse/pulseaudio.volume
+    echo -e "\nset-sink-volume $PA_SINK $PA_VOLUME" >> /etc/pulse/block.pa
+  fi 
+}
+
 # Platform specific commands to initialize audio hardware
 function init_audio_hardware () {
   # Allow hardware to be initialized, PulseAudio only creates cards/sinks/sources on startup
@@ -158,6 +168,7 @@ echo "- $(pulseaudio --version)"
 echo "- Pulse log level: $LOG_LEVEL"
 [[ -n ${COOKIE} ]] && echo "- Pulse cookie: $COOKIE"
 echo "- Default output: $DEFAULT_OUTPUT"
+[[ -n ${INIT_VOLUME} ]] && echo "- Init volume: $INIT_VOLUME"
 echo -e "\nDetected audio cards:"
 print_audio_cards
 echo -e "\n"
@@ -181,6 +192,7 @@ pa_disable_module module-bluetooth-policy
 pa_disable_module module-native-protocol-unix
 
 pa_set_log_level "$LOG_LEVEL"
+pa_set_init_volume "$INIT_VOLUME"
 
 # Set PulseAudio cookie
 if [[ -n "$COOKIE" ]]; then
