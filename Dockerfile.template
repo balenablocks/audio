@@ -27,4 +27,4 @@ COPY udev/95-balena-audio.rules /etc/udev/rules.d/95-balena-audio.rules
 COPY entry.sh .
 
 ENTRYPOINT [ "/bin/bash", "/usr/src/entry.sh" ]
-CMD [ "pulseaudio" ]
+CMD [ "pulseaudio", "--daemonize=false", "--log-target=stderr" ]
